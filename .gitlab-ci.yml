@@ -2,7 +2,6 @@ stages:
     - test
     - build
 
-
 test:
   image: node:latest
   stage: test
@@ -18,7 +17,7 @@ build-image:
   only:
     - master
   before_script:
-    - login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD"
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD"
   services:
     - docker:dind
   script:
