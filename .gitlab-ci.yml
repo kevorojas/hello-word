@@ -1,0 +1,27 @@
+stages:
+    - test
+    - build
+
+
+test:
+  image: node:latest
+  stage: test
+  script:
+    - npm install
+    - npm test
+
+
+build-image:
+  # Use the official docker image.
+  image: docker:latest
+  stage: build
+  only:
+    - master
+  services:
+    - docker:dind
+  script:
+    - docker build --pull -t "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG" .
+    - docker tag "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG" "$CI_REGISTRY_IMAGE:latest"
+    - docker push "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG"
+    - docker push "$CI_REGISTRY_IMAGE:latest"
+  
