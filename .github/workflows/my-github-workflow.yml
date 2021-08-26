@@ -45,8 +45,6 @@ jobs:
         id: docker_build
         uses: docker/build-push-action@v2
         with:
-          context: ./
-          file: ./Dockerfile
           builder: ${{ steps.buildx.outputs.name }}
           push: true
           tags:  krojas4/hello-world-2:${{ steps.prep.outputs.BUILD_ID }}
