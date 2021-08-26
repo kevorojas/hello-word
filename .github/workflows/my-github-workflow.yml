@@ -49,7 +49,7 @@ jobs:
           file: ./Dockerfile
           builder: ${{ steps.buildx.outputs.name }}
           push: true
-          tags:  ${{ secrets.DOCKER_HUB_USERNAME }}/hello-world-2:${{ steps.prep.outputs.BUILD_ID }}
+          tags:  krojas4/hello-world-2:${{ steps.prep.outputs.BUILD_ID }}
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
       - name: Image digest
