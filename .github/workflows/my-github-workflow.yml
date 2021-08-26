@@ -27,14 +27,19 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - name: Set outputs
-        id: vars
-        run: echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v3
+        with:
+          images: ${{ secrets.DOCKERHUB_USERNAME }}/hello-word-2
+          tags: |
+            type=ref,event=branch
+            type=semver,pattern={{version}}
+            type=semver,patter
       - name: Build and push
         id: docker_build
         uses: docker/build-push-action@v2
         with:
-          push: true
-          tags: 
-            ${{ secrets.DOCKERHUB_USERNAME }}/hello-word-2:latest
-            ${{ secrets.DOCKERHUB_USERNAME }}/hello-word-2:${{ env.GITHUB_JOB}}
+          context: .
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ${{ steps.meta.outputs.tags }}
