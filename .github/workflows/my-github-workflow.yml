@@ -43,8 +43,7 @@ jobs:
           key: ${{ runner.os }}-buildx-${{ github.sha }}
           restore-keys: |
             ${{ runner.os }}-buildx-
-
-       - name: Docker meta
+      - name: Docker meta
          id: meta
          uses: docker/metadata-action@v3
          with:
