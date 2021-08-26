@@ -19,7 +19,7 @@ describe("Hello World App", () => {
     test("should say hello with the name", async () => {
       const name = "PeterPan";
       const response = await supertest(app).get(`/hello/${name}`).expect(200);
-      expect(response.text).toEqual(`Hello ${name} espero estes bien!!`);
+      expect(response.text).toEqual(`Hello ${name} espero estes bien!`);
     });
   });
 });
